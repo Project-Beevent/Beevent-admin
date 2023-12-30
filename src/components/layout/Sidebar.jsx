@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { FaUser } from "react-icons/fa6";
 import { FaRegNewspaper } from "react-icons/fa6";
+import { FaHospital } from "react-icons/fa";
+import { MdGpsFixed } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 
 export default function Sidebar() {
@@ -28,6 +30,24 @@ export default function Sidebar() {
             }`}
           >
             <FaRegNewspaper /> Users
+          </li>
+        </Link>
+        <Link to="/locations">
+          <li
+            className={`mt-4 p-2 text-xl hover:bg-red-200 hover:rounded-xl flex items-center gap-3 ${
+              pathname === "/locations" && "bg-red-600 text-white rounded-xl"
+            }`}
+          >
+            <MdGpsFixed /> Locations
+          </li>
+        </Link>
+        <Link to="/hospitals">
+          <li
+            className={`mt-4 p-2 text-xl hover:bg-red-200 hover:rounded-xl flex items-center gap-3 ${
+              pathname === "/hospitals" && "bg-red-600 text-white rounded-xl"
+            }`}
+          >
+            <FaHospital /> Hospitals
           </li>
         </Link>
       </ul>

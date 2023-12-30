@@ -3,7 +3,8 @@ import UserForm from '../components/users/UserForm'
 
 export default function AddUser() {
   return (
-    <div>
+    <div className='m-auto w-4/5 pt-12' >
+      <h1 className="text-4xl text-primary mb-4">Add New User</h1>
       <UserForm></UserForm>
     </div>
   )

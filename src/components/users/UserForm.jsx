@@ -8,10 +8,10 @@ const userDefaultValues = {
   email: "",
   password: "",
   gender: "",
-  phoneNumber: "",
+  phone: "",
   bloodType: "",
-  lastDonationTime: "",
-  donationCount: "",
+  lastDonationDate: "",
+  donationCount: "",//int
   tcNo: "",
   age: "",
 };
@@ -24,9 +24,9 @@ const userSchema = yup.object().shape({
     .required("this field is required"),
   password: yup.string().required("this field is required"),
   gender: yup.string().required("this field is required"),
-  phoneNumber: yup.string().required("this field is required"),
+  phone: yup.string().required("this field is required"),
   bloodType: yup.string().required("this field is required"),
-  lastDonationTime: yup.string().required("this field is required"),
+  lastDonationDate: yup.string().required("this field is required"),
   donationCount: yup
     .number()
     .typeError("please provide an integer value")
@@ -56,6 +56,7 @@ export default function UserForm() {
     getValues,
     watch,
   } = useForm({
+    
     defaultValues: userDefaultValues,
     resolver: yupResolver(userSchema),
   });
@@ -71,7 +72,7 @@ export default function UserForm() {
       <div className="flex flex-col gap-1 my-2">
           <label htmlFor="fullName">Full Name</label>
           <input
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full "
             type="text"
             id="fullName"
             {...register("fullName")}
@@ -82,7 +83,7 @@ export default function UserForm() {
         <div className="flex flex-col gap-1 my-2">
           <label htmlFor="email">Email</label>
           <input
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full "
             type="email"
             id="email"
             {...register("email")}
@@ -93,7 +94,7 @@ export default function UserForm() {
         <div className="flex flex-col gap-1 my-2">
           <label htmlFor="password">Password</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full "
             type="password"
             id="password"
             {...register("password")}
@@ -105,7 +106,7 @@ export default function UserForm() {
         <div className="flex flex-col gap-1 my-2">
           <label htmlFor="gender">Gender</label>
 
-          <select name="gender" {...register("gender")} className="input input-bordered w-full max-w-xs">
+          <select name="gender" {...register("gender")} className="input input-bordered w-full ">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -115,7 +116,7 @@ export default function UserForm() {
           <label htmlFor="bloodType">Gender</label>
 
           <select name="bloodType" {...register("bloodType")} 
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full "
           >
             <option value="A+">A+</option>
             <option value="B+">B+</option>
@@ -129,28 +130,30 @@ export default function UserForm() {
           <p className="text-error">{errors.bloodType?.message}</p>
         </div>
         <div className="flex flex-col gap-1 my-2">
-          <label htmlFor="phoneNumber">Phone Number</label>
+          <label htmlFor="phone">Phone Number</label>
           
           <input
             type="text"
-            id="phoneNumber"
-            {...register("phoneNumber")}
+            id="phone"
+            {...register("phone")}
             placeholder="Phone Number"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full "
           />
-          <p className="text-error">{errors.phoneNumber?.message}</p>
+          <p className="text-error">{errors.phone?.message}</p>
         </div>
         <div className="flex flex-col gap-1 my-2">
-          <label htmlFor="lastDonationTime">Last Donation Time</label>
+          <label htmlFor="lastDonationDate">Last Donation Time</label>
           <input
             type="date"
-            id="lastDonationTime"
-            {...register("lastDonationTime")}
+            id="lastDonationDate"
+            {...register("lastDonationDate")}
             placeholder="Last Donation Time"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full "
           />
-          <p className="text-error">{errors.lastDonationTime?.message}</p>
+          <p className="text-error">{errors.lastDonationDate?.message}</p>
         </div>
+
+        {/* BURDA İNT DÖNÜŞÜMÜ YAPMAK LAZIM */}
         <div className="flex flex-col gap-1 my-2">
           <label htmlFor="donationCount">Donation Count</label>
           <input
@@ -158,7 +161,7 @@ export default function UserForm() {
             id="donationCount"
             {...register("donationCount")}
             placeholder="Donation Count"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full "
           />
           <p className="text-error">{errors.donationCount?.message}</p>
         </div>
@@ -169,7 +172,7 @@ export default function UserForm() {
             id="tcNo"
             {...register("tcNo")}
             placeholder="TC No"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full "
           />
           <p className="text-error">{errors.tcNo?.message}</p>
           </div>
@@ -180,7 +183,7 @@ export default function UserForm() {
             id="age"
             {...register("age")}
             placeholder="Age"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full "
           />
           <p className="text-error">{errors.age?.message}</p>
           </div>

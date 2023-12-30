@@ -15,20 +15,27 @@ import EditRequest from "./pages/EditRequest";
 import AllRequests from "./pages/AllRequests";
 import AddRequest from "./pages/AddRequest";
 import Layout from "./components/layout/Layout";
+import AllLocations from "./pages/AllLocations";
+import AllHospitals from "./pages/AllHospitals";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <div>404 Not Found</div>,
+    errorElement: <ErrorPage></ErrorPage>,
     element: <Layout></Layout>,
     children: [
-      { path: "/", element: <Navigate to="/request/new" /> },
+      { path: "/", element: <Navigate to="/requests" /> },
       { path: "/users", element: <AllUsers></AllUsers> },
-      { path: "/user/new", element: <AddUser></AddUser> },
-      { path: "/user/edit/:id", element: <EditUser></EditUser> },
+      { path: "/users/new", element: <AddUser></AddUser> },
+      { path: "/users/edit/:id", element: <EditUser></EditUser> },
       { path: "/requests", element: <AllRequests></AllRequests> },
-      { path: "/request/new", element: <AddRequest></AddRequest> },
-      { path: "/request/edit/:id", element: <EditRequest></EditRequest> },
+      { path: "/requests/new", element: <AddRequest></AddRequest> },
+      { path: "/requests/edit/:id", element: <EditRequest></EditRequest> },
+      { path: "/locations", element: <AllLocations></AllLocations> },
+      { path: "/hospitals", element: <AllHospitals></AllHospitals> },
+      { path: "/error", element: <ErrorPage></ErrorPage> },
+      { path: "*", element: <Navigate to="/error" />}
     ],
   },
 ]);
