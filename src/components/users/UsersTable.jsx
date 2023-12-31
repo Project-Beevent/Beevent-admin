@@ -49,7 +49,7 @@ export default function UsersTable({ users, deleteUser }) {
               <td>{user.gender}</td>
               <td>{user.tcNo}</td>
               <td>{user.age}</td>
-              <td>{user.lastDonationDate}</td>
+              <td>{user.lastDonationDate.reverse().join("-")}</td>
               <td>{user.donationCount}</td>
             </tr>
           ))}

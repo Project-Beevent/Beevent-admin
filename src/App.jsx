@@ -18,6 +18,7 @@ import AllLocations from "./pages/AllLocations";
 import AllHospitals from "./pages/AllHospitals";
 import ErrorPage from "./pages/ErrorPage";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        {/* <ToastContainer /> */}
+        <ToastContainer />  
       </QueryClientProvider>
     </>
   );
