@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import {apiUrl} from "../../data/url"
@@ -95,6 +95,32 @@ export default function UserForm() {
     defaultValues: userDefaultValues,
     resolver: yupResolver(userSchema),
   });
+
+  const {data: user, isLoading,error} = useQuery({
+    queryKey: ["users", params.id],
+    queryFn: async () => {
+      const result = await axios.get(`${apiUrl}/users/${params.id}`);
+      return result.data;
+    },
+    enabled: !!params.id,
+  });
+
+  useEffect(() => {
+    if (!user) return;
+    const [y,m,d] = user.lastDonationDate;
+    const formattedDate = `${y}-${m.toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`;
+    setValue("fullName", user.fullName);
+    setValue("email", user.email);
+    setValue("password", user.password);
+    setValue("gender", user.gender);
+    setValue("phone", user.phone);
+    setValue("bloodType", user.bloodType);
+    setValue("lastDonationDate", formattedDate);
+    setValue("donationCount", user.donationCount);
+    setValue("tcNo", user.tcNo);
+    setValue("age", user.age);
+  }, [user, setValue]);
+
 
   const onSubmitHandler = (data) => {
     //const body = { ...data, numOfClosets: parseInt(data.numOfClosets) };
