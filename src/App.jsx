@@ -1,6 +1,5 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
+
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -18,6 +17,7 @@ import Layout from "./components/layout/Layout";
 import AllLocations from "./pages/AllLocations";
 import AllHospitals from "./pages/AllHospitals";
 import ErrorPage from "./pages/ErrorPage";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +47,7 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        {/* <ToastContainer /> */}
       </QueryClientProvider>
     </>
   );

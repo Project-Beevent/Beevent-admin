@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React, { Fragment } from "react";
 import { Link, Navigate } from "react-router-dom";
@@ -8,6 +8,8 @@ import UsersTable from "../components/users/UsersTable";
 import { toast } from "react-toastify";
 
 export default function AllUsers() {
+  const queryClient = useQueryClient();
+
   const {
     isLoading,
     error,
@@ -27,7 +29,7 @@ export default function AllUsers() {
       return result.data;
     },
     onSuccess: () => {
-      QueryClient.invalidateQueries("users");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       toast.success("User deleted successfully");
     },
     onDelete: (error) => {

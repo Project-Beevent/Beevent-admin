@@ -16,7 +16,7 @@ const userDefaultValues = {
   phone: "",
   bloodType: "",
   lastDonationDate: "",
-  donationCount: "",//int
+  donationCount: "0",//int
   tcNo: "",
   age: "",
 };
@@ -36,7 +36,6 @@ const userSchema = yup.object().shape({
     .number()
     .typeError("please provide an integer value")
     .integer()
-    .positive("please provide an integer value")
     .required("this field is required"),
   tcNo: yup
     .string()
@@ -57,18 +56,18 @@ export default function UserForm() {
  
   const {mutate:submitUser} = useMutation({
     mutationFn: async (body) => {
-      const parameter = params.id ? params.id : "";
+      //const parameter = params.id ? params.id : "";
       const method = params.id ? "PUT" : "POST";
       const response = await axios({
-          url: `${apiUrl}/users/${+parameter}`,
+          url: `${apiUrl}/users/${params.id ? params.id : ""}`,
           method,
           data: body,
       });
       return response.data;
     },
     onSuccess: () => {
-      toast.success("Airport created successfully");
-      queryClient.invalidateQueries({ queryKey: ["airports"] });
+      toast.success("User created successfully");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       if (!params.id) {
           reset();
           return;
@@ -151,7 +150,7 @@ export default function UserForm() {
           <p className="text-error">{errors.gender?.message}</p>
         </div>
         <div className="flex flex-col gap-1 my-2">
-          <label htmlFor="bloodType">Gender</label>
+          <label htmlFor="bloodType">Blood Type</label>
 
           <select name="bloodType" {...register("bloodType")} 
           className="input input-bordered w-full "
