@@ -2,6 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import {apiUrl} from "../../data/url"
+import { toast } from "react-toastify";
 
 const userDefaultValues = {
   fullName: "",
@@ -46,6 +51,37 @@ const userSchema = yup.object().shape({
 });
 
 export default function UserForm() {
+  const queryClient = useQueryClient();
+  const params = useParams();
+  const navigate = useNavigate();
+ 
+  const {mutate:submitUser} = useMutation({
+    mutationFn: async (body) => {
+      const parameter = params.id ? params.id : "";
+      const method = params.id ? "PUT" : "POST";
+      const response = await axios({
+          url: `${apiUrl}/users/${+parameter}`,
+          method,
+          data: body,
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Airport created successfully");
+      queryClient.invalidateQueries({ queryKey: ["airports"] });
+      if (!params.id) {
+          reset();
+          return;
+      }
+      navigate("/users");
+  },
+  onError: (error) => {
+      console.log(error);
+      toast.error("User can not be submitted");
+  },
+
+  });
+ 
   const {
     register,
     control,
@@ -62,12 +98,14 @@ export default function UserForm() {
   });
 
   const onSubmitHandler = (data) => {
-    console.log(data);
+    //const body = { ...data, numOfClosets: parseInt(data.numOfClosets) };
+    console.log(data)
+    submitUser(data);
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmitHandler)} >
+      <form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
         <div className="mb-12">
       <div className="flex flex-col gap-1 my-2">
           <label htmlFor="fullName">Full Name</label>

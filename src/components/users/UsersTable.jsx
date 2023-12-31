@@ -1,8 +1,9 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
-export default function UsersTable({ users }) {
+export default function UsersTable({ users, deleteUser }) {
   return (
     <div className="overflow-x-auto overflow-y-auto h-[80vh]">
       <table className="table table-zebra">
@@ -28,12 +29,14 @@ export default function UsersTable({ users }) {
           {users.map((user) => (
             <tr key={user.id} className="text-xl">
               <td>
-                <button>
-                  <FaEdit />
-                </button>
+                <Link to={`/users/edit/${user.id}`}>
+                  <button>
+                    <FaEdit />
+                  </button>
+                </Link>
               </td>
               <td>
-                <button>
+                <button onClick={()=>{deleteUser(user.id)}}>
                   <RiDeleteBin6Fill />
                 </button>
               </td>
