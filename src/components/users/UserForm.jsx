@@ -56,10 +56,10 @@ export default function UserForm() {
  
   const {mutate:submitUser} = useMutation({
     mutationFn: async (body) => {
-      //const parameter = params.id ? params.id : "";
+      const parameter = params.id ?`/${params.id}` : "";
       const method = params.id ? "PUT" : "POST";
       const response = await axios({
-          url: `${apiUrl}/users/${params.id ? params.id : ""}`,
+          url: `${apiUrl}/users${parameter}`,
           method,
           data: body,
       });
