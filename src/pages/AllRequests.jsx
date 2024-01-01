@@ -1,4 +1,9 @@
-import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 import React, { Fragment, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
@@ -10,26 +15,43 @@ import { toast } from "react-toastify";
 
 const buildQuery = (filters) => {
   let query = "?";
+  let city = "",
+    bloodType = "";
   if (filters.city) {
-    query += `city=${filters.city}&`;
+    city += `city=${filters.city}`;
   }
   if (filters.bloodType) {
-    query += `bloodType=${filters.bloodType}`;
+    bloodType += `blood_type=${filters.bloodType}`.replace("+", "%2B").replace("-", "%2D");
   }
+
+  if (city && bloodType) {
+    query += `${city}&${bloodType}`;
+  } else if (city) {
+    query += city;
+  } else if (bloodType) {
+    query += bloodType;
+  } else query = "";
   return query;
-}
+};
 
 export default function AllRequests() {
-
-  const [filters, setFilters] = useState({city: "", bloodType: ""});
+  const [filters, setFilters] = useState({ city: "", bloodType: "" });
 
   const queryClient = useQueryClient();
 
-  const { isLoading, error, data:requests } = useQuery({
+  const {
+    isLoading,
+    error,
+    data: requests,
+  } = useQuery({
     queryKey: ["requests", filters],
     queryFn: async () => {
-      const result  = await axios.get(`${apiUrl}/blood_requests${buildQuery(filters)}`);
-      return result.data
+      let url = `${apiUrl}/blood_requests${buildQuery(filters)}`;
+      console.log(url);
+      const result = await axios.get(url);
+      console.log("BU NE AMK");
+      console.log(result.data);
+      return result.data;
     },
   });
 
@@ -59,11 +81,13 @@ export default function AllRequests() {
         </Link>
       </div>
 
-      <RequestFilter setFilters={setFilters}/>
-      
+      <RequestFilter setFilters={setFilters} />
+
       {isLoading && <LoadingSpinner />}
       {error && <Navigate to="/error" />}
-      {requests && <RequestsTable requests={requests} deleteRequest={deleteRequest} />}
+      {requests && (
+        <RequestsTable requests={requests} deleteRequest={deleteRequest} />
+      )}
     </div>
   );
 }

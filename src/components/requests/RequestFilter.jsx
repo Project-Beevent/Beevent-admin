@@ -5,6 +5,7 @@ export default function RequestFilter({setFilters}) {
   const [city, setCity] = useState("");
 
     const onClickHandler = (e) => {
+      console.log(city, bloodType)
         setFilters({city, bloodType});
     }
 
@@ -34,8 +35,8 @@ export default function RequestFilter({setFilters}) {
           <option value="B-">B-</option>
           <option value="AB+">AB+</option>
           <option value="AB-">AB-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
+          <option value="0+">0+</option>
+          <option value="0-">0-</option>
         </select>
 
         <button className="btn btn-primary btn-outline" onClick={onClickHandler}>Filter</button>

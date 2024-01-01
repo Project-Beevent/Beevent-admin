@@ -140,11 +140,11 @@ export default function RequestForm() {
             <option value="A+">A+</option>
             <option value="B+">B+</option>
             <option value="AB+">AB+</option>
-            <option value="O+">O+</option>
             <option value="A-">A-</option>
             <option value="B-">B-</option>
             <option value="AB-">AB-</option>
-            <option value="O-">O-</option>
+            <option value="0+">0+</option>
+            <option value="0-">0-</option>
           </select>
           <p className="text-error">{errors.bloodType?.message}</p>
         </div>
