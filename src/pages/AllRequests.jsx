@@ -35,16 +35,16 @@ export default function AllRequests() {
 
   const { mutate: deleteRequest } = useMutation({
     mutationFn: async (id) => {
-      const result = await axios.delete(`${apiUrl}/users/${id}`);
+      const result = await axios.delete(`${apiUrl}/blood_requests/${id}`);
       return result.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
-      toast.success("User deleted successfully");
+      queryClient.invalidateQueries(["requests"]);
+      toast.success("Request deleted successfully");
     },
     onDelete: (error) => {
       console.log(error);
-      toast.error("User can not be deleted");
+      toast.error(error.response.data.message);
     },
   });
 
@@ -63,7 +63,7 @@ export default function AllRequests() {
       
       {isLoading && <LoadingSpinner />}
       {error && <Navigate to="/error" />}
-      {requests && <RequestsTable requests={requests} />}
+      {requests && <RequestsTable requests={requests} deleteRequest={deleteRequest} />}
     </div>
   );
 }

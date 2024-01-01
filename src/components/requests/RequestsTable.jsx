@@ -2,8 +2,9 @@ import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { FaCircleInfo } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
-export default function RequestsTable({ requests }) {
+export default function RequestsTable({ requests, deleteRequest }) {
 
 
   return (
@@ -14,7 +15,7 @@ export default function RequestsTable({ requests }) {
           <tr className="text-xl">
             <th>Edit</th>
             <th>Delete</th>
-            <th>Details</th>
+            {/* <th>Details</th> */}
             <th>Id</th>
             <th>Title</th>
             <th>Request Date</th>
@@ -30,24 +31,29 @@ export default function RequestsTable({ requests }) {
 
           {requests.map((request) => (
             <tr key={request.id} className="text-xl">
+
               <td>
-                <button>
-                  <FaEdit />
-                </button>
+              <Link to={`/requests/edit/${request.id}`}>
+                  <button>
+                    <FaEdit />
+                  </button>
+              </Link>
               </td>
               <td>
-                <button>
+                <button onClick={()=>{deleteRequest(request.id)}}>
                   <RiDeleteBin6Fill />
                 </button>
               </td>
-              <td>
-                <button>
-                  <FaCircleInfo />
-                </button>
-              </td>
+              {/* <td>
+                <Link to={`requests/${request.id}`}>
+                  <button>
+                    <FaCircleInfo />
+                  </button>
+                </Link>
+              </td> */}
               <td>{request.id}</td>
               <td>{request.title}</td>
-              <td>{request.dateRequested}</td>
+              <td>{request.dateRequested.join("-")}</td>
               <td>{request.user.fullName}</td>
               <td>{request.user.phone}</td>
               <td>{request.bloodType}</td>

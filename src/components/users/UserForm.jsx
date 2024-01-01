@@ -76,9 +76,8 @@ export default function UserForm() {
   },
   onError: (error) => {
       console.log(error);
-      toast.error("User can not be submitted");
+      toast.error(error.response.data.message);
   },
-
   });
  
   const {
