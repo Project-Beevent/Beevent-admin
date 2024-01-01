@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import HospitalsTable from "../components/hospitals/HospitalsTable";
-import { mockHospitals } from "../data/mockHospitals";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import axios from "axios";
 import { Navigate } from "react-router-dom";

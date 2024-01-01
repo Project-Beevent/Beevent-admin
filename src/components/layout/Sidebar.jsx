@@ -10,8 +10,8 @@ export default function Sidebar() {
   const { pathname } = useLocation();
 
   return (
-    <div className="p-8 shadow-xl h-full flex flex-col items-start justify-between">
-      <h1 className="text-red-600 text-5xl">KanVer</h1>
+    <div className=" h-full flex flex-col items-start justify-between">
+      <h1 className="text-red-600 text-5xl sm:hidden xl:block">KanVer</h1>
 
       <ul className="mt-16 w-full">
         <Link to="/requests">
@@ -20,7 +20,12 @@ export default function Sidebar() {
               pathname === "/requests" && "bg-red-600 text-white rounded-xl"
             }`}
           >
-            <FaUser /> Requests
+            {/* <FaUser /> Requests */}
+            <span className="sm:block sm:text-2xl ">
+              {" "}
+              <FaUser />
+            </span>
+            <span className="sm:hidden xl:block">Requests</span>
           </li>
         </Link>
         <Link to="/users">
@@ -29,7 +34,12 @@ export default function Sidebar() {
               pathname === "/users" && "bg-red-600 text-white rounded-xl"
             }`}
           >
-            <FaRegNewspaper /> Users
+            {/* <FaRegNewspaper /> Users */}
+            <span className="sm:block sm:text-2xl ">
+              {" "}
+              <FaRegNewspaper />
+            </span>
+            <span className="sm:hidden xl:block">Users</span>
           </li>
         </Link>
         <Link to="/locations">
@@ -38,24 +48,41 @@ export default function Sidebar() {
               pathname === "/locations" && "bg-red-600 text-white rounded-xl"
             }`}
           >
-            <MdGpsFixed /> Locations
+            {/* <MdGpsFixed /> Locations */}
+            <span className="sm:block sm:text-2xl ">
+              {" "}
+              <MdGpsFixed />
+            </span>
+            <span className="sm:hidden xl:block">Locations</span>
           </li>
         </Link>
         <Link to="/hospitals">
           <li
-            className={`mt-4 p-2 text-xl hover:bg-red-200 hover:rounded-xl flex items-center gap-3 ${
+            className={`mt-4 p-2 text-xl hover:bg-red-200 hover:rounded-xl flex items-center gap-3  ${
               pathname === "/hospitals" && "bg-red-600 text-white rounded-xl"
             }`}
           >
-            <FaHospital /> Hospitals
+            <span className="sm:block sm:text-2xl ">
+              {" "}
+              <FaHospital />
+            </span>
+            <span className="sm:hidden xl:block">Hospitals</span>
           </li>
         </Link>
       </ul>
 
       <div>
-        <p className="mb-2">Logged as <b>Admin</b></p>
-<button className="flex items-center gap-3 text-xl "><MdLogout /> Logout</button>
-
+        <p className="mb-2 sm:hidden xl:block">
+          Logged as <b>Admin</b>
+        </p>
+        <button className="flex items-center gap-3 text-xl sm:">
+          {/* <MdLogout /> Logout */}
+          <span className="sm:block sm:text-2xl ">
+              {" "}
+              <MdLogout />
+            </span>
+            <span className="sm:hidden xl:block">Logout</span>
+        </button>
       </div>
     </div>
   );

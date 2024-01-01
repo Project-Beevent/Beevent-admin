@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import LocationsTable from "../components/Locations/LocationsTable";
-import { mockLocations } from "../data/mockLocations";
 import axios from "axios";
 import { apiUrl } from "../data/url";
 import { useQuery } from "@tanstack/react-query";
